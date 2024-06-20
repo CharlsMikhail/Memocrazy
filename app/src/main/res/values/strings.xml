@@ -15,4 +15,5 @@
     <string name="txt_puntuacion">Puntuación:</string>
     <string name="btn_restart">Volver a Jugar</string>
     <string name="btn_menu">Volver al menu</string>
+    <string name="btn_exit_game">Abandonar juego</string>
 </resources>
