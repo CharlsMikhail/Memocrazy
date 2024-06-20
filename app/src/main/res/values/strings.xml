@@ -8,4 +8,11 @@
     <string name="user_hint">Ingrese su usuario</string>
     <string name="btn_init">Init</string>
     <string name="list_score">Top 10</string>
+    <string name="name_player">Player 1</string>
+    <string name="txt_time">Time: 1.56</string>
+    <string name="txt_score">Score: 23</string>
+    <string name="num_puntuacion">14</string>
+    <string name="txt_puntuacion">Puntuación:</string>
+    <string name="btn_restart">Volver a Jugar</string>
+    <string name="btn_menu">Volver al menu</string>
 </resources>
