@@ -4,4 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_start_game">Start</string>
     <string name="btn_best_score">Best Scores</string>
+    <string name="btn_best_scores">Best Score</string>
+    <string name="user_hint">Ingrese su usuario</string>
+    <string name="btn_init">Init</string>
+    <string name="list_score">Top 10</string>
 </resources>

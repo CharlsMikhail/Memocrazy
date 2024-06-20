@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacion_game"
-    app:startDestination="@id/menuGameFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/menuGameFragment"
@@ -36,4 +36,13 @@
         android:name="com.example.memocrazy.ScoreFragment"
         android:label="fragment_score"
         tools:layout="@layout/fragment_score" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.memocrazy.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_menuGameFragment"
+            app:destination="@id/menuGameFragment" />
+    </fragment>
 </navigation>
