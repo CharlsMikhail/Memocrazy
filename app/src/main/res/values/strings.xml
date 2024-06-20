@@ -16,4 +16,5 @@
     <string name="btn_restart">Volver a Jugar</string>
     <string name="btn_menu">Volver al menu</string>
     <string name="btn_exit_game">Abandonar juego</string>
+    <string name="sw_sound">Sound</string>
 </resources>
