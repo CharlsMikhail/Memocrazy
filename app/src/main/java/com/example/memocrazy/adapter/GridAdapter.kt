@@ -7,6 +7,12 @@ import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.ImageView
 
+/**
+ * @problemDescription Es el encargado de mostrar una cuadrícula de imágenes en un GridView.
+ * @author Carlos Mijail Mamani Anccasi
+ * @creationDate 19/06/24
+ * @lastModification 20/06/24
+ */
 class GridAdapter(private val mContext: Context) : BaseAdapter() {
 
     // Lista de recursos de imagen proporcionados por Android

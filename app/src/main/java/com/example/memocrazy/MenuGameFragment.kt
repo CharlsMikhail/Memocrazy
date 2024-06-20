@@ -7,6 +7,13 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 
+/**
+ * @problemDescription Se encarga de la vista del menu del juego, donde habra una bienvenida y se
+ * mostrara las diferentes opciones del juego(Jugar, Ver puntajes y quitar sonido).
+ * @author Carlos Mijail Mamani Anccasi
+ * @creationDate 19/06/24
+ * @lastModification 20/06/24
+ */
 class MenuGameFragment : Fragment(R.layout.fragment_menu_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

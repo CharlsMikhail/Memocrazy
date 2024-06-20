@@ -8,6 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 
+
+/**
+ * @problemDescription Se encarga de la vista de login, donde el ususario sera el key para un jugador
+ * @author Carlos Mijail Mamani Anccasi
+ * @creationDate 19/06/24
+ * @lastModification 20/06/24
+ */
 class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

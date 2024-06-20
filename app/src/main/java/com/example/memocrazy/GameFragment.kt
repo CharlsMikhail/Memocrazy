@@ -8,6 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.memocrazy.adapter.GridAdapter
 
+
+/**
+ * @problemDescription Se encargara de mostrar el tablero de juego e interactuar con el
+ * usuario. Además mostrar el nombre del jugador, temporizadir y el puntaje actual del jugador.
+ * @author Carlos Mijail Mamani Anccasi
+ * @creationDate 19/06/24
+ * @lastModification 20/06/24
+ */
 class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
