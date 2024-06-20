@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="25dp"
     tools:context=".GameFragment">
 
 
@@ -38,13 +37,20 @@
     </TableRow>
 
     <GridView
+        android:id="@+id/grid_game"
         android:layout_width="match_parent"
-        android:layout_height="616dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:columnWidth="100dp"
         android:horizontalSpacing="10dp"
         android:numColumns="4"
         android:verticalSpacing="10dp" />
 
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
 
 </LinearLayout>
