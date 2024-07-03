@@ -5,6 +5,7 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Context
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -15,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.memocrazy.R
+import com.example.memocrazy.utils.KEY_SCORE
 import kotlin.properties.Delegates
 
 /**
@@ -118,7 +120,9 @@ class GridAdapter(private val mContext: Context, private val scoreTextView: Text
                     500) // Espera 900ms antes de validar la jugada
                 if (puntuacion == 9) {
                     Toast.makeText(mContext, "GANASTE", Toast.LENGTH_SHORT).show()
-                    scoreTextView.findNavController().navigate(R.id.action_gameFragment_to_scoreFragment)
+                    val delivery = Bundle()
+                    delivery.putInt(KEY_SCORE, puntuacion)
+                    scoreTextView.findNavController().navigate(R.id.action_gameFragment_to_scoreFragment, delivery)
                 }
             }
 
