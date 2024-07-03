@@ -12,9 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isEmpty
 import com.example.memocrazy.R
+import kotlin.properties.Delegates
 
 /**
  * @problemDescription Es el encargado de mostrar una cuadrícula de imágenes en un GridView.
@@ -22,7 +24,7 @@ import com.example.memocrazy.R
  * @creationDate 19/06/24
  * @lastModification 20/06/24
  */
-class GridAdapter(private val mContext: Context) : BaseAdapter() {
+class GridAdapter(private val mContext: Context, private val scoreTextView: TextView) : BaseAdapter() {
 
     // Atributos
     private var puntuacion = 0
@@ -33,6 +35,8 @@ class GridAdapter(private val mContext: Context) : BaseAdapter() {
     private var ganoPartida = false
     private var unaCartaLevantada = false
     private var dosCartas: Pair<ImageView?, ImageView?> = Pair(null, null)
+    var primeraCartaImagen by Delegates.notNull<Int>()
+    var segundaCartaImagen by Delegates.notNull<Int>()
 
     private val mGridItems = arrayOf(
         android.R.drawable.ic_menu_camera,
@@ -87,36 +91,64 @@ class GridAdapter(private val mContext: Context) : BaseAdapter() {
         imageView.setImageResource(mThumbIds[position])
 
         imageView.setOnClickListener {
-            val newImageResId = mGridItems[position]
-            parent!!.isEnabled = false
-            animateImageView(parent, imageView, newImageResId)
-            Toast.makeText(mContext, "Hola", Toast.LENGTH_SHORT).show()
+            imageView.isEnabled = false
+
+            if (!unaCartaLevantada) {
+                primeraCartaImagen = mGridItems[position]
+                unaCartaLevantada = true
+                animateCardFlipFirstHalf(imageView, primeraCartaImagen, parent!!)
+                dosCartas = Pair(imageView, null)
+            } else {
+                segundaCartaImagen = mGridItems[position]
+                animateCardFlipFirstHalf(imageView, segundaCartaImagen, parent!!)
+                dosCartas = Pair(dosCartas.first, imageView)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (validarJugada(primeraCartaImagen, segundaCartaImagen)) {
+                        unaCartaLevantada = false
+                        dosCartas.first!!.isEnabled = false
+                        dosCartas.second!!.isEnabled = false
+                        updateScore()
+                    } else {
+                        animateCardFlipFirstHalf(dosCartas.first!!, android.R.drawable.ic_menu_help, parent)
+                        animateCardFlipFirstHalf(dosCartas.second!!, android.R.drawable.ic_menu_help, parent)
+                        dosCartas.first!!.isEnabled = true
+                        dosCartas.second!!.isEnabled = true
+                        unaCartaLevantada = false
+                    }
+                }, 900) // Espera 900ms antes de validar la jugada
+            }
         }
 
         return imageView
     }
 
-    private fun validarJugada(): Boolean{
-        if (dosCartas.first?.drawable?.constantState == dosCartas.second?.drawable?.constantState) {
+    private fun validarJugada(imageResId1: Int, imageResId2: Int): Boolean {
+        return if (imageResId1 == imageResId2) {
             puntuacion++
             Toast.makeText(mContext, "CORRECTO", Toast.LENGTH_SHORT).show()
-            return true
-        }
-        else {
+            true
+        } else {
             Toast.makeText(mContext, "INCORRECTO", Toast.LENGTH_SHORT).show()
-            return false
+            false
         }
     }
 
-    // Función para animar el ImageView y bloquear clics temporalmente
-    private fun animateImageView(parent: ViewGroup, imageView: ImageView, newImageResId: Int, duration: Long = 2000L) {
+
+    private fun updateScore() {
+        scoreTextView.text = "Score: $puntuacion"
+    }
+
+
+    // Función para animar solo la primera mitad del volteo de la carta
+    private fun animateCardFlipFirstHalf(imageView: ImageView, newImageResId: Int, parent: ViewGroup) {
         // Bloquear clics
         toggleClickability(parent, false)
 
         // Primera mitad de la animación (girar a 90 grados)
         val animatorOut = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_out) as AnimatorSet
-        // Segunda mitad de la animación (girar de -90 a 0 grados)
         val animatorIn = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_in) as AnimatorSet
+
+
 
         animatorOut.setTarget(imageView)
         animatorIn.setTarget(imageView)
@@ -127,26 +159,12 @@ class GridAdapter(private val mContext: Context) : BaseAdapter() {
                 super.onAnimationEnd(animation)
                 imageView.setImageResource(newImageResId)
                 animatorIn.start()
+                // Desbloquear clics después de que la animación haya terminado
+                toggleClickability(parent, true)
             }
         })
-
-        // Usar un Handler para volver a la imagen original después de un tiempo y desbloquear clics
-        Handler(Looper.getMainLooper()).postDelayed({
-            animatorOut.start()
-            animatorOut.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    imageView.setImageResource(android.R.drawable.ic_menu_help)
-                    animatorIn.start()
-
-                    // Desbloquear clics después de que la animación haya terminado
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        toggleClickability(parent, true)
-                    }, animatorIn.totalDuration)
-                }
-            })
-        }, duration)
     }
+
 
     // Función para bloquear y desbloquear clics
     fun toggleClickability(parent: ViewGroup, enable: Boolean) {
