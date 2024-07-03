@@ -25,10 +25,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val btnLogin = view.findViewById<Button>(R.id.btn_init)
 
         btnLogin.setOnClickListener {
-            val userName = view.findViewById<EditText>(R.id.et_user)
+            val userEmail = view.findViewById<EditText>(R.id.et_user_mail)
+            val userPassword = view.findViewById<EditText>(R.id.et_user_password)
+            
+
+            validarEmailUser(userEmail.text.toString())
+
+            validarPasswordUser(userPassword.text.toString())
 
             view.findNavController().navigate(R.id.action_loginFragment_to_menuGameFragment)
 
         }
     }
+
+    private fun validarPasswordUser(userPassword: String) {
+
+    }
+
+    private fun validarEmailUser(userEmail: String) {
+        
+    }
+    
+    
 }
