@@ -18,4 +18,6 @@
     <string name="btn_exit_game">Abandonar juego</string>
     <string name="sw_sound">Sound</string>
     <string name="password_hint">Ingrese su contraseña</string>
+    <string name="email_user">charlsmikhail@gmail.com</string>
+    <string name="score_user">Score: 500</string>
 </resources>
