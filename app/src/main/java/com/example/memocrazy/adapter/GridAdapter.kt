@@ -5,7 +5,6 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Context
-import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -14,7 +13,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.view.isEmpty
+import androidx.navigation.findNavController
 import com.example.memocrazy.R
 import kotlin.properties.Delegates
 
@@ -102,7 +101,7 @@ class GridAdapter(private val mContext: Context, private val scoreTextView: Text
                 segundaCartaImagen = mGridItems[position]
                 animateCardFlipFirstHalf(imageView, segundaCartaImagen, parent!!)
                 dosCartas = Pair(dosCartas.first, imageView)
-                Handler(Looper.getMainLooper()).postDelayed({
+                Handler(Looper.getMainLooper()).postAtTime({
                     if (validarJugada(primeraCartaImagen, segundaCartaImagen)) {
                         unaCartaLevantada = false
                         dosCartas.first!!.isEnabled = false
@@ -115,8 +114,15 @@ class GridAdapter(private val mContext: Context, private val scoreTextView: Text
                         dosCartas.second!!.isEnabled = true
                         unaCartaLevantada = false
                     }
-                }, 900) // Espera 900ms antes de validar la jugada
+                },
+                    500) // Espera 900ms antes de validar la jugada
+                if (puntuacion == 9) {
+                    Toast.makeText(mContext, "GANASTE", Toast.LENGTH_SHORT).show()
+                    scoreTextView.findNavController().navigate(R.id.action_gameFragment_to_scoreFragment)
+                }
             }
+
+
         }
 
         return imageView
@@ -147,8 +153,6 @@ class GridAdapter(private val mContext: Context, private val scoreTextView: Text
         // Primera mitad de la animación (girar a 90 grados)
         val animatorOut = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_out) as AnimatorSet
         val animatorIn = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_in) as AnimatorSet
-
-
 
         animatorOut.setTarget(imageView)
         animatorIn.setTarget(imageView)
