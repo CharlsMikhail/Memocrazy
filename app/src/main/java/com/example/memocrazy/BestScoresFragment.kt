@@ -3,6 +3,11 @@ package com.example.memocrazy
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.memocrazy.adapter.BestScoresAdapter
+import com.example.memocrazy.entities.BestScore
 
 
 /**
@@ -12,7 +17,24 @@ import androidx.fragment.app.Fragment
  * @lastModification 20/06/24
  */
 class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
+
+    private lateinit var userAdapter: BestScoresAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initRecycleView(view)
+
     }
+
+    private fun initRecycleView(view: View) {
+        val manager = LinearLayoutManager(context)
+        userAdapter = BestScoresAdapter(mutableListOf<BestScore>()) // Consulta a base de datos
+        val decoration = DividerItemDecoration(context, manager.orientation)
+        val usersRecyler = view.findViewById<RecyclerView>(R.id.recycler_best_score)
+        usersRecyler.layoutManager = manager
+        usersRecyler.adapter = userAdapter
+        usersRecyler.addItemDecoration(decoration)
+    }
+
 }
