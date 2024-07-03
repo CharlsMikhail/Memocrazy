@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "228564806919",
+    "project_id": "memocrazy-164ba",
+    "storage_bucket": "memocrazy-164ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:228564806919:android:f73c6cb117da19fa2da9a2",
+        "android_client_info": {
+          "package_name": "com.example.memocrazy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1GuxEnkSLnxtzNtfFNAxcWvMM2KHWq1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
