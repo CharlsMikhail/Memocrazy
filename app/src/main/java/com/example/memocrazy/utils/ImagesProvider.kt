@@ -1,0 +1,110 @@
+class ImagesProvider {
+    companion object{
+        // Lista de recursos de imágenes agrupadas por tema
+        private val themes = listOf(
+            listOf(
+                android.R.drawable.ic_menu_camera,
+                android.R.drawable.ic_menu_gallery,
+                android.R.drawable.ic_menu_manage,
+                android.R.drawable.ic_menu_search,
+                android.R.drawable.ic_menu_send,
+                android.R.drawable.ic_menu_view,
+                android.R.drawable.ic_menu_zoom,
+                android.R.drawable.ic_media_ff,
+                android.R.drawable.ic_media_next,
+                android.R.drawable.ic_media_pause
+            ),
+            listOf(
+                android.R.drawable.ic_menu_add,
+                android.R.drawable.ic_menu_agenda,
+                android.R.drawable.ic_menu_always_landscape_portrait,
+                android.R.drawable.ic_menu_call,
+                android.R.drawable.ic_menu_close_clear_cancel,
+                android.R.drawable.ic_menu_compass,
+                android.R.drawable.ic_menu_crop,
+                android.R.drawable.ic_menu_day,
+                android.R.drawable.ic_menu_delete,
+                android.R.drawable.ic_menu_directions
+            ),
+            listOf(
+                android.R.drawable.ic_menu_edit,
+                android.R.drawable.ic_menu_gallery,
+                android.R.drawable.ic_menu_help,
+                android.R.drawable.ic_menu_info_details,
+                android.R.drawable.ic_menu_manage,
+                android.R.drawable.ic_menu_mapmode,
+                android.R.drawable.ic_menu_month,
+                android.R.drawable.ic_menu_more,
+                android.R.drawable.ic_menu_my_calendar,
+                android.R.drawable.ic_menu_mylocation
+            ),
+            listOf(
+                android.R.drawable.ic_menu_myplaces,
+                android.R.drawable.ic_menu_preferences,
+                android.R.drawable.ic_menu_recent_history,
+                android.R.drawable.ic_menu_report_image,
+                android.R.drawable.ic_menu_revert,
+                android.R.drawable.ic_menu_rotate,
+                android.R.drawable.ic_menu_save,
+                android.R.drawable.ic_menu_search,
+                android.R.drawable.ic_menu_send,
+                android.R.drawable.ic_menu_set_as
+            ),
+            listOf(
+                android.R.drawable.ic_menu_share,
+                android.R.drawable.ic_menu_slideshow,
+                android.R.drawable.ic_menu_sort_alphabetically,
+                android.R.drawable.ic_menu_sort_by_size,
+                android.R.drawable.ic_menu_today,
+                android.R.drawable.ic_menu_upload,
+                android.R.drawable.ic_menu_upload_you_tube,
+                android.R.drawable.ic_menu_view,
+                android.R.drawable.ic_menu_week,
+                android.R.drawable.ic_menu_zoom
+            ),
+            listOf(
+                android.R.drawable.ic_btn_speak_now,
+                android.R.drawable.ic_delete,
+                android.R.drawable.ic_dialog_alert,
+                android.R.drawable.ic_dialog_dialer,
+                android.R.drawable.ic_dialog_email,
+                android.R.drawable.ic_dialog_info,
+                android.R.drawable.ic_dialog_map,
+                android.R.drawable.ic_input_add,
+                android.R.drawable.ic_input_delete,
+                android.R.drawable.ic_input_get
+            ),
+            listOf(
+                android.R.drawable.ic_lock_idle_alarm,
+                android.R.drawable.ic_lock_idle_charging,
+                android.R.drawable.ic_lock_idle_lock,
+                android.R.drawable.ic_lock_idle_low_battery,
+                android.R.drawable.ic_lock_lock,
+                android.R.drawable.ic_lock_power_off,
+                android.R.drawable.ic_lock_silent_mode,
+                android.R.drawable.ic_lock_silent_mode_off,
+                android.R.drawable.ic_media_ff,
+                android.R.drawable.ic_media_next
+            ),
+            listOf(
+                android.R.drawable.ic_media_pause,
+                android.R.drawable.ic_media_play,
+                android.R.drawable.ic_media_previous,
+                android.R.drawable.ic_media_rew,
+                android.R.drawable.ic_notification_clear_all,
+                android.R.drawable.ic_notification_overlay,
+                android.R.drawable.ic_partial_secure,
+                android.R.drawable.ic_popup_disk_full,
+                android.R.drawable.ic_popup_reminder,
+                android.R.drawable.ic_popup_sync
+            )
+        )
+
+        // Función para obtener las cartas de un tema específico en orden aleatorio
+        fun getCardsForTheme(themeIndex: Int): List<Int> {
+            require(themeIndex in 0 until themes.size) { "Theme index out of bounds" }
+            val theme = themes[themeIndex].shuffled()
+            return theme + theme // Duplicamos para tener pares únicos
+        }
+    }
+}

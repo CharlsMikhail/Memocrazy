@@ -1,5 +1,6 @@
 package com.example.memocrazy
 
+import ImagesProvider
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -21,29 +22,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         super.onViewCreated(view, savedInstanceState)
         eventos(view)
 
-        val mGridItems = arrayListOf(
-            android.R.drawable.ic_menu_camera,
-            android.R.drawable.ic_menu_gallery,
-            android.R.drawable.ic_menu_manage,
-            android.R.drawable.ic_menu_search,
-            android.R.drawable.ic_menu_send,
-            android.R.drawable.ic_menu_view,
-            android.R.drawable.ic_menu_zoom,
-            android.R.drawable.ic_media_ff,
-            android.R.drawable.ic_media_next,
-            android.R.drawable.ic_media_pause,
-            android.R.drawable.ic_menu_camera,
-            android.R.drawable.ic_menu_gallery,
-            android.R.drawable.ic_menu_manage,
-            android.R.drawable.ic_menu_search,
-            android.R.drawable.ic_menu_send,
-            android.R.drawable.ic_menu_view,
-            android.R.drawable.ic_menu_zoom,
-            android.R.drawable.ic_media_ff,
-            android.R.drawable.ic_media_next,
-            android.R.drawable.ic_media_pause
-        )
-
+        val mGridItems = ImagesProvider.getCardsForTheme(0)
         val gridView: GridView = view.findViewById(R.id.grid_game)
         gridView.adapter = GridAdapter(view.context, view.findViewById(R.id.txt_score), view.findViewById(R.id.txt_time), mGridItems, "Pedro")
     }

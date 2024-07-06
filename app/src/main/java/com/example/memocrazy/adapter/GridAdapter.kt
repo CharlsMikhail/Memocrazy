@@ -5,6 +5,10 @@ import android.animation.AnimatorInflater
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Context
+import android.graphics.Color
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.media.ToneGenerator
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -96,6 +100,8 @@ class GridAdapter(
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (validarJugada(primeraCartaImagen, segundaCartaImagen)) {
                         unaCartaLevantada = false
+                        dosCartas.first!!.setBackgroundColor(Color.GREEN)
+                        dosCartas.second!!.setBackgroundColor(Color.GREEN)
                         dosCartas.first!!.isEnabled = false
                         dosCartas.second!!.isEnabled = false
                         updateScore()
@@ -120,10 +126,10 @@ class GridAdapter(
     private fun validarJugada(imageResId1: Int, imageResId2: Int): Boolean {
         return if (imageResId1 == imageResId2) {
             puntuacion++
-            Toast.makeText(mContext, "CORRECTO", Toast.LENGTH_SHORT).show()
+            reproducirSonidoExito()
             true
         } else {
-            Toast.makeText(mContext, "INCORRECTO", Toast.LENGTH_SHORT).show()
+            reproducirSonidoError()
             false
         }
     }
@@ -185,4 +191,14 @@ class GridAdapter(
             parent.getChildAt(i).isClickable = enable
         }
     }
+
+    fun reproducirSonidoExito() {
+        val toneGen = ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100)
+        toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 200)
+    }
+    fun reproducirSonidoError() {
+        val toneGen = ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100)
+        toneGen.startTone(ToneGenerator.TONE_SUP_ERROR, 200)
+    }
+
 }
