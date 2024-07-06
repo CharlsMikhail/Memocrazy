@@ -90,13 +90,15 @@ class GridAdapter(
             if (!unaCartaLevantada) {
                 primeraCartaImagen = mGridItems[position]
                 unaCartaLevantada = true
-                animateCardFlipFirstHalf(imageView, primeraCartaImagen, parent!!)
                 dosCartas = Pair(imageView, null)
+                dosCartas.first!!.isEnabled = false
+                animateCardFlipFirstHalf(imageView, primeraCartaImagen, parent!!)
+
             } else {
                 segundaCartaImagen = mGridItems[position]
                 animateCardFlipFirstHalf(imageView, segundaCartaImagen, parent!!)
                 dosCartas = Pair(dosCartas.first, imageView)
-                toggleClickability(parent!!, false) // Disable clicks during validation
+                toggleClickability(parent, false) // Disable clicks during validation
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (validarJugada(primeraCartaImagen, segundaCartaImagen)) {
                         unaCartaLevantada = false
