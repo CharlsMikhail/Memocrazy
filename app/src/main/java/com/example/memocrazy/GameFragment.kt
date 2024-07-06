@@ -14,15 +14,38 @@ import com.example.memocrazy.adapter.GridAdapter
  * usuario. Además mostrar el nombre del jugador, temporizadir y el puntaje actual del jugador.
  * @author Carlos Mijail Mamani Anccasi
  * @creationDate 19/06/24
- * @lastModification 20/06/24
+ * @lastModification 06/07/24
  */
 class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         eventos(view)
 
+        val mGridItems = arrayListOf(
+            android.R.drawable.ic_menu_camera,
+            android.R.drawable.ic_menu_gallery,
+            android.R.drawable.ic_menu_manage,
+            android.R.drawable.ic_menu_search,
+            android.R.drawable.ic_menu_send,
+            android.R.drawable.ic_menu_view,
+            android.R.drawable.ic_menu_zoom,
+            android.R.drawable.ic_media_ff,
+            android.R.drawable.ic_media_next,
+            android.R.drawable.ic_media_pause,
+            android.R.drawable.ic_menu_camera,
+            android.R.drawable.ic_menu_gallery,
+            android.R.drawable.ic_menu_manage,
+            android.R.drawable.ic_menu_search,
+            android.R.drawable.ic_menu_send,
+            android.R.drawable.ic_menu_view,
+            android.R.drawable.ic_menu_zoom,
+            android.R.drawable.ic_media_ff,
+            android.R.drawable.ic_media_next,
+            android.R.drawable.ic_media_pause
+        )
+
         val gridView: GridView = view.findViewById(R.id.grid_game)
-        gridView.adapter = GridAdapter(view.context, view.findViewById(R.id.txt_score))
+        gridView.adapter = GridAdapter(view.context, view.findViewById(R.id.txt_score), view.findViewById(R.id.txt_time), mGridItems, "Pedro")
     }
 
     private fun eventos(view: View) {
