@@ -7,23 +7,27 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 
-
 /**
- * @problemDescription Se encarga de la vista del menu del juego, donde habra una bienvenida y se
- * mostrara las diferentes opciones del juego(Jugar, Ver puntajes y quitar sonido).
- * @author Carlos Mijail Mamani Anccasi
- * @creationDate 19/06/24
- * @lastModification 20/06/24
+ * Fragmento que maneja la vista del menú del juego en Memocrazy.
+ *
+ * @property mediaPlayer Reproductor de música de fondo.
  */
 class MenuGameFragment : Fragment(R.layout.fragment_menu_game) {
 
     private lateinit var mediaPlayer: MediaPlayer
 
+    /**
+     * Se llama cuando la vista del fragmento se crea. Configura los eventos de los botones
+     * del menú del juego.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         eventos(view)
     }
 
+    /**
+     * Configura los eventos de clic para los botones del menú del juego.
+     */
     private fun eventos(view: View) {
         val btnStarGame = view.findViewById<Button>(R.id.btn_start_game)
 

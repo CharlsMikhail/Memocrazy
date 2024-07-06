@@ -1,11 +1,8 @@
 package com.example.memocrazy
 
-import com.google.firebase.firestore.FirebaseFirestore
-
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,15 +10,13 @@ import com.example.memocrazy.adapter.BestScoresAdapter
 import com.example.memocrazy.entities.BestScore
 
 /**
- * @problemDescription Se encargara de mostrar los mejores scores(TOP10 de los jugadores)
- * @author Carlos Mijail Mamani Anccasi
- * @creationDate 19/06/24
- * @lastModification 20/06/24
+ * Fragmento que muestra los mejores puntajes (TOP 10) de los jugadores.
+ *
+ * @property bestScoresList Lista mutable de los mejores puntajes estáticos.
  */
 class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
 
-    private lateinit var userAdapter: BestScoresAdapter
-
+    // Lista de los mejores puntajes, inicializados estáticamente
     val bestScoresList = mutableListOf(
         BestScore("ShadowWarrior", 1500),
         BestScore("CyberPilot", 1400),
@@ -35,21 +30,40 @@ class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
         BestScore("ApexLegend", 600)
     )
 
+    /**
+     * Se llama cuando la vista del fragmento ha sido creada. Configura el RecyclerView.
+     *
+     * @param view Vista raíz del fragmento.
+     * @param savedInstanceState Estado anterior del fragmento, si existe.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecycleView(view)
-
+        initRecyclerView(view)
     }
 
-    private fun initRecycleView(view: View) {
-        val manager = LinearLayoutManager(context)
-        userAdapter = BestScoresAdapter(bestScoresList) // Consulta a base de datos
-        val decoration = DividerItemDecoration(context, manager.orientation)
-        val usersRecyler = view.findViewById<RecyclerView>(R.id.recycler_best_score)
-        usersRecyler.layoutManager = manager
-        usersRecyler.adapter = userAdapter
-        usersRecyler.addItemDecoration(decoration)
+    /**
+     * Inicializa y configura el RecyclerView para mostrar la lista de mejores puntajes.
+     *
+     * @param view Vista raíz del fragmento.
+     */
+    private fun initRecyclerView(view: View) {
+        // Configura el LinearLayoutManager para el RecyclerView
+        val layoutManager = LinearLayoutManager(context)
+
+        // Crea una instancia del adaptador BestScoresAdapter con la lista de puntajes
+        val adapter = BestScoresAdapter(bestScoresList)
+
+        // Crea un DividerItemDecoration para añadir líneas divisorias entre elementos
+        val decoration = DividerItemDecoration(context, layoutManager.orientation)
+
+        // Obtiene una referencia al RecyclerView desde la vista
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_best_score)
+
+        // Asigna el LinearLayoutManager, el adaptador y el decorador al RecyclerView
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(decoration)
     }
 
 }

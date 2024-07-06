@@ -7,7 +7,6 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Color
 import android.media.AudioManager
-import android.media.MediaPlayer
 import android.media.ToneGenerator
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -25,10 +24,13 @@ import com.example.memocrazy.utils.KEY_SCORE
 import kotlin.properties.Delegates
 
 /**
- * @problemDescription Grilla encargada de manejar logica del juego en si.
- * @author Carlos Mijail Mamani Anccasi
- * @creationDate 19/06/24
- * @lastModification 06/07/24
+ * Adaptador para gestionar la lógica del juego de memoria en una grilla de imágenes.
+ *
+ * @param mContext Contexto de la aplicación.
+ * @param timeTextView TextView donde se muestra el tiempo restante.
+ * @param scoreTextView TextView donde se muestra la puntuación actual.
+ * @param images Lista de recursos de imágenes para el juego.
+ * @param username Nombre de usuario del jugador.
  */
 class GridAdapter(
     private val mContext: Context,
@@ -38,12 +40,9 @@ class GridAdapter(
     private val username: String
 ) : BaseAdapter() {
 
-    // Atributos
+    // Atributos del juego
     private var puntuacion = 0
     private var tiempoMaximo = 180000L // 3 minutos en milisegundos
-    private var tiempoInicio = 0L
-    private var tiempoFinal = 0L
-    private var tiempoTranscurrido = 0L
     private var ganoPartida = false
     private var unaCartaLevantada = false
     private var dosCartas: Pair<ImageView?, ImageView?> = Pair(null, null)
@@ -51,9 +50,10 @@ class GridAdapter(
     var segundaCartaImagen by Delegates.notNull<Int>()
     private lateinit var countDownTimer: CountDownTimer
 
-    private val mGridItems = images + images // Duplicar las imágenes para el juego de memoria
+    // Duplicar las imágenes para el juego de memoria
+    private val mGridItems = images + images
 
-    // Lista de recursos de imagen proporcionados por Android
+    // Lista de recursos de imagen predeterminados por Android
     private val mThumbIds = MutableList(20) { android.R.drawable.ic_menu_help }
 
     init {
@@ -75,12 +75,13 @@ class GridAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val imageView: ImageView
         if (convertView == null) {
-            // if it's not recycled, initialize some attributes
+            // Crear una nueva ImageView si no está reciclada
             imageView = ImageView(mContext)
             imageView.layoutParams = ViewGroup.LayoutParams(210, 240)
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
             imageView.setPadding(2, 3, 2, 3)
         } else {
+            // Reutilizar la ImageView existente
             imageView = convertView as ImageView
         }
 
@@ -93,12 +94,11 @@ class GridAdapter(
                 dosCartas = Pair(imageView, null)
                 dosCartas.first!!.isEnabled = false
                 animateCardFlipFirstHalf(imageView, primeraCartaImagen, parent!!)
-
             } else {
                 segundaCartaImagen = mGridItems[position]
                 animateCardFlipFirstHalf(imageView, segundaCartaImagen, parent!!)
                 dosCartas = Pair(dosCartas.first, imageView)
-                toggleClickability(parent, false) // Disable clicks during validation
+                toggleClickability(parent, false) // Deshabilitar clics durante la validación
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (validarJugada(primeraCartaImagen, segundaCartaImagen)) {
                         unaCartaLevantada = false
@@ -114,8 +114,10 @@ class GridAdapter(
                         dosCartas.second!!.isEnabled = true
                         unaCartaLevantada = false
                     }
-                    toggleClickability(parent, true) // Re-enable clicks after validation
-                }, 500) // Espera 2000ms antes de validar la jugada
+                    toggleClickability(parent, true) // Re-habilitar clics después de la validación
+                }, 500) // Esperar 500ms antes de validar la jugada
+
+                // Verificar si se completaron todas las jugadas
                 if (puntuacion == 9) {
                     ganoPartida = true
                     endGame()
@@ -125,6 +127,7 @@ class GridAdapter(
         return imageView
     }
 
+    // Validar si las dos cartas seleccionadas son iguales
     private fun validarJugada(imageResId1: Int, imageResId2: Int): Boolean {
         return if (imageResId1 == imageResId2) {
             puntuacion++
@@ -136,10 +139,12 @@ class GridAdapter(
         }
     }
 
+    // Actualizar la puntuación mostrada en TextView
     private fun updateScore() {
         scoreTextView.text = "Score: $puntuacion"
     }
 
+    // Iniciar el temporizador del juego
     private fun startTimer() {
         countDownTimer = object : CountDownTimer(tiempoMaximo, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -157,9 +162,10 @@ class GridAdapter(
         }.start()
     }
 
+    // Finalizar el juego cuando se agota el tiempo o se completa
     private fun endGame() {
         countDownTimer.cancel()
-        Toast.makeText(mContext, if (ganoPartida) "GANASTE" else "PERDISTE", Toast.LENGTH_SHORT).show()
+        Toast.makeText(mContext, if (ganoPartida) "¡GANASTE!" else "¡PERDISTE!", Toast.LENGTH_SHORT).show()
         val delivery = Bundle().apply {
             putInt(KEY_SCORE, puntuacion)
             putString("username", username)
@@ -167,9 +173,8 @@ class GridAdapter(
         scoreTextView.findNavController().navigate(R.id.action_gameFragment_to_scoreFragment, delivery)
     }
 
-    // Función para animar solo la primera mitad del volteo de la carta
+    // Animar solo la primera mitad del volteo de la carta
     private fun animateCardFlipFirstHalf(imageView: ImageView, newImageResId: Int, parent: ViewGroup) {
-        // Primera mitad de la animación (girar a 90 grados)
         val animatorOut = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_out) as AnimatorSet
         val animatorIn = AnimatorInflater.loadAnimator(imageView.context, R.animator.card_flip_in) as AnimatorSet
 
@@ -186,7 +191,7 @@ class GridAdapter(
         })
     }
 
-    // Función para bloquear y desbloquear clics
+    // Habilitar o deshabilitar clics en todas las ImageView dentro del GridView
     fun toggleClickability(parent: ViewGroup, enable: Boolean) {
         parent.isClickable = enable
         for (i in 0 until parent.childCount) {
@@ -194,10 +199,13 @@ class GridAdapter(
         }
     }
 
+    // Reproducir sonido de éxito cuando se encuentra una pareja de cartas
     fun reproducirSonidoExito() {
         val toneGen = ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100)
         toneGen.startTone(ToneGenerator.TONE_CDMA_PIP, 200)
     }
+
+    // Reproducir sonido de error cuando no coinciden las cartas seleccionadas
     fun reproducirSonidoError() {
         val toneGen = ToneGenerator(AudioManager.STREAM_NOTIFICATION, 100)
         toneGen.startTone(ToneGenerator.TONE_SUP_ERROR, 200)
