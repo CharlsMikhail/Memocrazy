@@ -21,4 +21,6 @@
     <string name="email_user">charlsmikhail@gmail.com</string>
     <string name="score_user">Score: 500</string>
     <string name="btn_register">Registrarse</string>
+    <string name="theme">Elije un tema</string>
+    <string name="dragonball">Dragon Ball</string>
 </resources>

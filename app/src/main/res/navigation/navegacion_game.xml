@@ -14,8 +14,8 @@
             android:id="@+id/action_menuGameFragment_to_bestScoresFragment"
             app:destination="@id/bestScoresFragment" />
         <action
-            android:id="@+id/action_menuGameFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            android:id="@+id/action_menuGameFragment_to_themeFragment"
+            app:destination="@id/themeFragment" />
     </fragment>
     <fragment
         android:id="@+id/bestScoresFragment"
@@ -44,5 +44,14 @@
         <action
             android:id="@+id/action_loginFragment_to_menuGameFragment"
             app:destination="@id/menuGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/themeFragment"
+        android:name="com.example.memocrazy.ThemeFragment"
+        android:label="fragment_theme"
+        tools:layout="@layout/fragment_theme" >
+        <action
+            android:id="@+id/action_themeFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
 </navigation>

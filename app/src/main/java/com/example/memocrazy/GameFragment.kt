@@ -8,7 +8,7 @@ import android.widget.GridView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.memocrazy.adapter.GridAdapter
-
+import com.example.memocrazy.utils.KEY_THEME
 
 /**
  * @problemDescription Se encargara de mostrar el tablero de juego e interactuar con el
@@ -17,12 +17,21 @@ import com.example.memocrazy.adapter.GridAdapter
  * @creationDate 19/06/24
  * @lastModification 06/07/24
  */
+
 class GameFragment : Fragment(R.layout.fragment_game) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var theme = 0
+
+        arguments?.let {
+            theme = it.getInt(KEY_THEME)
+        }
+
         eventos(view)
 
-        val mGridItems = ImagesProvider.getCardsForTheme(0)
+
+        val mGridItems = ImagesProvider.getCardsForTheme(theme)
         val gridView: GridView = view.findViewById(R.id.grid_game)
         gridView.adapter = GridAdapter(view.context, view.findViewById(R.id.txt_score), view.findViewById(R.id.txt_time), mGridItems, "Pedro")
     }
@@ -32,6 +41,7 @@ class GameFragment : Fragment(R.layout.fragment_game) {
 
         btnExit.setOnClickListener {
             // Por el momento, en un futuro mostrará un diálogo de confirmación
+            view.findNavController().popBackStack()
             view.findNavController().popBackStack()
         }
     }

@@ -3,9 +3,6 @@ package com.example.memocrazy
 import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 /**
  * @problemDescription Main activity de la aplicación de Memocrazy
  * @author Carlos Mijail Mamani Anccasi

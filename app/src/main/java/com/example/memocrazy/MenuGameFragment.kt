@@ -28,7 +28,7 @@ class MenuGameFragment : Fragment(R.layout.fragment_menu_game) {
         val btnStarGame = view.findViewById<Button>(R.id.btn_start_game)
 
         btnStarGame.setOnClickListener {
-            view.findNavController().navigate(R.id.action_menuGameFragment_to_gameFragment)
+            view.findNavController().navigate(R.id.action_menuGameFragment_to_themeFragment)
         }
 
         val btnScoreList = view.findViewById<Button>(R.id.btn_best_scores)
