@@ -21,7 +21,20 @@ import com.example.memocrazy.entities.BestScore
 class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
 
     private lateinit var userAdapter: BestScoresAdapter
-    private lateinit var topScores: MutableList<BestScore>
+
+    val bestScoresList = mutableListOf(
+        BestScore("ShadowWarrior", 1500),
+        BestScore("CyberPilot", 1400),
+        BestScore("DragonSlayer", 1300),
+        BestScore("GhostRecon", 1200),
+        BestScore("SkyrimMaster", 1100),
+        BestScore("SonicSpeedster", 1000),
+        BestScore("PixelPirate", 900),
+        BestScore("SpaceInvader", 800),
+        BestScore("FortniteChampion", 700),
+        BestScore("ApexLegend", 600)
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,7 +44,7 @@ class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
 
     private fun initRecycleView(view: View) {
         val manager = LinearLayoutManager(context)
-        userAdapter = BestScoresAdapter(mutableListOf()) // Consulta a base de datos
+        userAdapter = BestScoresAdapter(bestScoresList) // Consulta a base de datos
         val decoration = DividerItemDecoration(context, manager.orientation)
         val usersRecyler = view.findViewById<RecyclerView>(R.id.recycler_best_score)
         usersRecyler.layoutManager = manager

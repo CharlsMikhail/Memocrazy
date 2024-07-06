@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Memocrazy</string>
+    <string name="title">BIENVENIDO AL JUEGO</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_start_game">Start</string>
     <string name="btn_best_score">Best Scores</string>
-    <string name="btn_best_scores">Best Score</string>
-    <string name="user_hint">Ingrese su usuario</string>
-    <string name="btn_init">Ingresar</string>
+    <string name="btn_best_scores">Best Scores</string>
+    <string name="user_hint">Ingrese su email</string>
+    <string name="btn_init">INGRESAR</string>
     <string name="list_score">Top 10</string>
     <string name="name_player">Player 1</string>
     <string name="txt_time">Time: 1.56</string>
@@ -20,7 +21,7 @@
     <string name="password_hint">Ingrese su contraseña</string>
     <string name="email_user">charlsmikhail@gmail.com</string>
     <string name="score_user">Score: 500</string>
-    <string name="btn_register">Registrarse</string>
+    <string name="btn_register">REGISTRASE</string>
     <string name="theme">Elije un tema</string>
     <string name="dragonball">Dragon Ball</string>
 </resources>

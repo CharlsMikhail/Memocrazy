@@ -5,66 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
+    android:background="@drawable/login_potrait"
     tools:context=".LoginFragment">
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="191dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#21801D"
+        android:layout_width="226dp"
+        android:layout_height="67dp"
+        android:backgroundTint="#170660"
         android:text="@string/btn_init"
+        android:textColor="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_user_password"
-        app:layout_constraintVertical_bias="0.303" />
+        app:layout_constraintVertical_bias="0.343" />
 
     <Button
         android:id="@+id/btn_register"
-        android:layout_width="191dp"
-        android:layout_height="55dp"
-        android:backgroundTint="#21801D"
+        android:layout_width="230dp"
+        android:layout_height="64dp"
+        android:backgroundTint="#170660"
         android:text="@string/btn_register"
+        android:textColor="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_user_password"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.665" />
 
     <EditText
         android:id="@+id/et_user_mail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="emailAddress"
+        android:background="@drawable/edit_text_background"
+        android:backgroundTint="#FFFFFF"
         android:hint="@string/user_hint"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.42" />
 
     <EditText
         android:id="@+id/et_user_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="password"
+        android:background="@drawable/edit_text_background"
         android:hint="@string/password_hint"
         android:inputType="numberPassword"
         android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413" />
+        app:layout_constraintVertical_bias="0.544" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
