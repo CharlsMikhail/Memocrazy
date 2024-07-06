@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.memocrazy.adapter.GridAdapter
 import com.example.memocrazy.utils.KEY_THEME
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * @problemDescription Se encargara de mostrar el tablero de juego e interactuar con el
@@ -27,13 +29,34 @@ class GameFragment : Fragment(R.layout.fragment_game) {
         arguments?.let {
             theme = it.getInt(KEY_THEME)
         }
-
+        actualizarInterfaz(view)
         eventos(view)
-
 
         val mGridItems = ImagesProvider.getCardsForTheme(theme)
         val gridView: GridView = view.findViewById(R.id.grid_game)
         gridView.adapter = GridAdapter(view.context, view.findViewById(R.id.txt_score), view.findViewById(R.id.txt_time), mGridItems, "Pedro")
+    }
+
+    private fun actualizarInterfaz(view: View) {
+        val userName: TextView = view.findViewById(R.id.txt_player)
+
+        // Obtenemos el usuario actualmente autenticado
+        val user = FirebaseAuth.getInstance().currentUser
+
+        // Verificamos que el usuario no sea nulo
+        user?.let {
+            // Obtenemos el email del usuario
+            val email = user.email
+
+            // Verificamos que el email no sea nulo y contiene el símbolo '@'
+            email?.let {
+                // Obtenemos la parte antes del '@'
+                val userNameBeforeAt = email.substringBefore('@')
+
+                // Actualizamos la interfaz con el nombre de usuario antes del '@'
+                userName.text = "Player: $userNameBeforeAt"
+            }
+        }
     }
 
     private fun eventos(view: View) {

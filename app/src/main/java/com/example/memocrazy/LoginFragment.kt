@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var txtEmail: EditText
+    private lateinit var txtPassword: EditText
     private lateinit var db: FirebaseFirestore
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,64 +32,74 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
 
-    private fun validarPasswordUser(userPassword: String) {
-
+    private fun validarEmailUser(userEmail: String): Boolean {
+        return if (userEmail.isEmpty()) {
+            txtEmail.error = "El campo email no puede estar vacío"
+            false
+        } else {
+            true
+        }
     }
 
-    private fun validarEmailUser(userEmail: String) {
-        
+    private fun validarPasswordUser(userPassword: String): Boolean {
+        return if (userPassword.length < 6) {
+            txtPassword.error = "La contraseña debe tener al menos 6 caracteres"
+            false
+        } else {
+            true
+        }
     }
 
     private fun eventos(view: View) {
         txtEmail = view.findViewById<EditText>(R.id.et_user_mail)
-        val txtPassword = view.findViewById<EditText>(R.id.et_user_password)
+        txtPassword = view.findViewById<EditText>(R.id.et_user_password)
         val btnLogin = view.findViewById<Button>(R.id.btn_login)
         val btnRegister = view.findViewById<Button>(R.id.btn_register)
 
         btnRegister.setOnClickListener {
+            val email = txtEmail.text.toString()
+            val password = txtPassword.text.toString()
 
-            validarEmailUser(txtPassword.text.toString())
-
-            validarPasswordUser(txtEmail.text.toString())
-
-
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(
-                txtEmail.text.toString(), txtPassword.text.toString()
-            ).addOnCompleteListener{
-                if (it.isSuccessful){
-                    showMenu(view)
-                } else{
-                    showError()
-                }
+            if (validarEmailUser(email) && validarPasswordUser(password)) {
+                FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            showMenu(view)
+                        } else {
+                            val errorMessage = when (task.exception) {
+                                is FirebaseAuthUserCollisionException ->
+                                    "Ya existe un usuario con este correo electrónico"
+                                else -> "Error al registrar el usuario"
+                            }
+                            showError(errorMessage)
+                        }
+                    }
             }
         }
 
         btnLogin.setOnClickListener {
+            val email = txtEmail.text.toString()
+            val password = txtPassword.text.toString()
 
-            validarEmailUser(txtPassword.text.toString())
-
-            validarPasswordUser(txtEmail.text.toString())
-
-
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(
-                txtEmail.text.toString(), txtPassword.text.toString()
-
-            ).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    showMenu(view)
-                } else {
-                    showError()
-                }
+            // Validar email y contraseña antes de iniciar sesión
+            if (validarEmailUser(email) && validarPasswordUser(password)) {
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            showMenu(view)
+                        } else {
+                            showError("Error al iniciar sesión")
+                        }
+                    }
             }
         }
 
-
     }
 
-    private fun showError() {
+    private fun showError(message: String) {
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("Error")
-        builder.setMessage("Se ha producido un error")
+        builder.setMessage(message)
         builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
