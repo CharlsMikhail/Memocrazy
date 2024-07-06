@@ -1,34 +1,73 @@
-# MemoCrazy
+### Memocrazy
 
-## Objetivo de la Aplicación
+Memocrazy es una aplicación de juego de memoria diseñada para dispositivos Android. Permite a los usuarios jugar, registrar sus puntajes más altos y explorar diferentes temas visuales durante el juego.
 
-MemoCrazy es una aplicación interactiva diseñada para poner a prueba y mejorar la memoria de los jugadores a través de un juego de memorama. Este proyecto se desarrolla como parte del curso de Programación de Dispositivos Móviles con fines académicos, demostrando y aplicando todo lo aprendido en dicho curso.
+### Características Principales
 
-## Funcionalidades de la Aplicación
+- **Juego de Memoria:** Interfaz de usuario intuitiva para jugar y mejorar la memoria.
+- **Gestión de Puntajes:** Registro y visualización de los 10 puntajes más altos.
+- **Selección de Temas:** Variedad de temas visuales para personalizar la experiencia de juego.
+- **Autenticación de Usuarios:** Registro e inicio de sesión seguro mediante Firebase Authentication.
+- **Almacenamiento de Datos:** Utilización de Firebase Firestore para almacenar puntajes y temas seleccionados por los usuarios.
 
-- **Inicio y Menú Principal:** Pantalla de inicio con una breve descripción del juego y opciones para iniciar un nuevo juego, ver los mejores puntajes (TOP 10) y activar o desactivar el sonido del juego.
+### Capturas de Pantalla
 
-- **Selección de Tema:** Los jugadores pueden elegir entre diferentes temas para las imágenes de las cartas, como animales, frutas, objetos, personajes, entre otros.
+(Incluir aquí capturas de pantalla representativas de la aplicación en acción)
 
-- **Temporizador:** La partida tendrá un tiempo máximo asignado para completarse, visible en todo momento durante el juego.
+### Instalación
 
-- **Puntuación:** Se otorgarán puntos por cada par de cartas encontradas correctamente y por el tiempo restante al finalizar el juego. Los mejores puntajes se guardarán y mostrarán en la lista de mejores puntajes.
+1. **Requisitos Previos:**
+  - Dispositivo Android con versión 6.0 (Marshmallow) o superior.
+  - Conexión a Internet para la autenticación y almacenamiento de puntajes en Firebase.
 
-- **Sonido y Música:** El juego contará con efectos de sonido temáticos y música de fondo acorde al tema seleccionado.
+2. **Descarga del APK:**
+  - Descarga el archivo APK desde [https://github.com/CharlsMikhail/Memocrazy.git](#) o clona el repositorio y compila el proyecto utilizando Android Studio.
 
-- **Interfaz de Juego:** Las cartas estarán dispuestas en una cuadrícula de 4 columnas por 5 filas, y los jugadores podrán voltear dos cartas a la vez para encontrar pares coincidentes.
-  
-  ![Visión aproximada de cómo será la interfaz principal del juego(en sí) con diferentes temas.](https://github.com/CharlsMikhail/Memocrazy/assets/89269010/ea0f1204-6af6-4609-b834-2aac070b182d)
+3. **Instalación:**
+  - Abre el archivo APK descargado en tu dispositivo Android.
+  - Sigue las instrucciones en pantalla para completar la instalación.
 
+### Uso
 
-## Beneficios Educativos y de Entretenimiento
+1. **Inicio de Sesión:**
+  - Al abrir la aplicación, se te pedirá que inicies sesión o te registres con una cuenta de correo electrónico.
+  - Si eres un usuario nuevo, selecciona "Registrarse" y completa el formulario.
+  - Si ya tienes una cuenta, ingresa tu correo electrónico y contraseña y selecciona "Iniciar Sesión".
 
-MemoCrazy ofrece una experiencia entretenida y educativa, ayudando a mejorar la memoria visual, la concentración y la capacidad de recordar información a corto plazo. Es adecuado para todas las edades y proporciona una forma divertida de entrenar la mente.
+2. **Selección de Tema:**
+  - Después de iniciar sesión, podrás seleccionar uno de los temas disponibles para personalizar la apariencia del juego.
 
-## Conclusión
+3. **Juego de Memoria:**
+  - Una vez seleccionado el tema, podrás jugar al juego de memoria.
+  - Toca las cartas para encontrar las coincidencias y mejorar tu puntuación.
 
-MemoCrazy combina elementos clásicos del juego de memorama con características modernas y tecnológicas, brindando una experiencia atractiva y desafiante para todos los jugadores. Este proyecto está desarrollado en Android Studio utilizando Kotlin y es compatible con dispositivos Android 11 en adelante (API nivel 30 como mínimo).
+4. **Visualización de Puntajes:**
+  - Después de jugar, podrás ver tus puntajes más altos en la sección de puntajes.
+  - Los puntajes se actualizan automáticamente en Firebase Firestore.
 
----
+5. **Opciones de Menú:**
+  - Desde el menú principal, puedes acceder a diferentes opciones como jugar de nuevo, ver puntajes o cerrar sesión.
 
-Este archivo README.md está completo y bien redactado, proporcionando una descripción detallada del proyecto y cómo ejecutarlo. Además, se encuentra disponible en el repositorio de GitHub y se mantiene actualizado con los cambios relevantes en el proyecto.
+### Contribución
+
+- Si deseas contribuir a Memocrazy, por favor sigue estas instrucciones:
+  1. Haz un fork del repositorio.
+  2. Crea una rama nueva (`git checkout -b feature/nueva-funcionalidad`).
+  3. Realiza tus cambios y haz commit (`git commit -am 'Agrega nueva funcionalidad'`).
+  4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
+  5. Crea un nuevo Pull Request.
+
+### Tecnologías Utilizadas
+
+- Kotlin
+- Android SDK
+- Firebase Authentication
+- Firebase Firestore
+
+### Autores
+
+- Carlos Mijail Mamani Anccasi
+
+### Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
