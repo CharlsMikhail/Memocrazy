@@ -31,7 +31,7 @@ class BestScoresFragment : Fragment(R.layout.fragment_best_scores) {
 
     private fun initRecycleView(view: View) {
         val manager = LinearLayoutManager(context)
-        userAdapter = BestScoresAdapter(topScores) // Consulta a base de datos
+        userAdapter = BestScoresAdapter(mutableListOf()) // Consulta a base de datos
         val decoration = DividerItemDecoration(context, manager.orientation)
         val usersRecyler = view.findViewById<RecyclerView>(R.id.recycler_best_score)
         usersRecyler.layoutManager = manager
